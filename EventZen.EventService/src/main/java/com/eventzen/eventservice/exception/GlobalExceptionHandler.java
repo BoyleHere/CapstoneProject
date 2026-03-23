@@ -63,18 +63,8 @@ public class GlobalExceptionHandler {
                 ? ex.getMostSpecificCause().getMessage()
                 : ex.getMessage();
 
-        String lower = fullMessage != null ? fullMessage.toLowerCase() : "";
-
-        if (lower.contains("venue already booked for this time")) {
+        if (fullMessage != null && fullMessage.toLowerCase().contains("venue already booked for this time")) {
             return build(HttpStatus.BAD_REQUEST, "Venue already booked for this time", request);
-        }
-
-        if (lower.contains("foreign key") || lower.contains("constraint fails")) {
-            return build(HttpStatus.BAD_REQUEST, "Invalid reference data in request", request);
-        }
-
-        if (lower.contains("duplicate") || lower.contains("unique")) {
-            return build(HttpStatus.CONFLICT, "Duplicate value violates unique constraint", request);
         }
 
         return build(HttpStatus.INTERNAL_SERVER_ERROR, "Database operation failed", request);
