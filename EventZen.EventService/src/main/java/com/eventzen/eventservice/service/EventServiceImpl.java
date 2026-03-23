@@ -46,16 +46,38 @@ public class EventServiceImpl implements EventService {
         event.setUpdatedBy(actorUserId);
         event.setStatus(ACTIVE);
 
-        return toResponse(saveWithConflictTranslation(event));
+        return toResponse(saveWithConflictTranslation(event), true);
     }
 
     @Override
     public List<EventResponse> getActiveEvents(Long venueId, LocalDateTime fromDate, LocalDateTime toDate) {
         validateDateRange(fromDate, toDate);
 
-        return eventRepository.findActiveEventsWithFilters(ACTIVE, venueId, fromDate, toDate)
+        List<Event> events = eventRepository.findActiveEventsWithFilters(ACTIVE, venueId, fromDate, toDate);
+        if (events.isEmpty()) {
+            return List.of();
+        }
+
+        java.util.Set<Long> venueIds = events.stream()
+                .map(Event::getVenueId)
+                .filter(java.util.Objects::nonNull)
+                .collect(java.util.stream.Collectors.toSet());
+
+        java.util.Map<Long, com.eventzen.eventservice.model.Venue> venueMap = venueRepository.findAllById(venueIds)
                 .stream()
-                .map(this::toResponse)
+                .collect(java.util.stream.Collectors.toMap(com.eventzen.eventservice.model.Venue::getId, v -> v));
+
+        return events.stream()
+                .map(event -> {
+                    EventResponse response = toResponse(event, false);
+                    if (event.getVenueId() != null) {
+                        com.eventzen.eventservice.model.Venue venue = venueMap.get(event.getVenueId());
+                        if (venue != null) {
+                            response.setCapacity(venue.getCapacity());
+                        }
+                    }
+                    return response;
+                })
                 .toList();
     }
 
@@ -63,7 +85,7 @@ public class EventServiceImpl implements EventService {
     public EventResponse getActiveEventById(Long id) {
         Event event = eventRepository.findByIdAndStatus(id, ACTIVE)
                 .orElseThrow(() -> new NotFoundException("Event not found"));
-        return toResponse(event);
+        return toResponse(event, true);
     }
 
     @Override
@@ -83,7 +105,7 @@ public class EventServiceImpl implements EventService {
         event.setDescription(request.getDescription());
         event.setUpdatedBy(actorUserId);
 
-        return toResponse(saveWithConflictTranslation(event));
+        return toResponse(saveWithConflictTranslation(event), true);
     }
 
     @Override
@@ -153,7 +175,7 @@ public class EventServiceImpl implements EventService {
         }
     }
 
-    private EventResponse toResponse(Event event) {
+    private EventResponse toResponse(Event event, boolean fetchVenue) {
         EventResponse response = new EventResponse();
         response.setId(event.getId());
         response.setName(event.getName());
@@ -169,8 +191,8 @@ public class EventServiceImpl implements EventService {
         response.setStatus(event.getStatus());
         response.setCreatedAt(event.getCreatedAt());
         response.setUpdatedAt(event.getUpdatedAt());
-        // Set venue capacity
-        if (event.getVenueId() != null) {
+
+        if (fetchVenue && event.getVenueId() != null) {
             venueRepository.findById(event.getVenueId()).ifPresent(venue -> {
                 response.setCapacity(venue.getCapacity());
             });

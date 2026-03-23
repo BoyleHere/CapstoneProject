@@ -46,7 +46,9 @@ public class VenueService {
         String normalizedLocation = normalizeLocation(location);
         validateDate(date);
 
-        return venueRepository.searchActiveVenues(ACTIVE, normalizedLocation, capacity)
+        return venueRepository
+                .searchActiveVenues(ACTIVE, normalizedLocation, capacity,
+                        (date != null && !date.isBlank()) ? date : null)
                 .stream()
                 .map(this::toResponse)
                 .toList();

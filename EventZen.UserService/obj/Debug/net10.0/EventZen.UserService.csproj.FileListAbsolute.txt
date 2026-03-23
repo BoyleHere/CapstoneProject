@@ -114,3 +114,4 @@ D:\Users\Prashast\Desktop\Deloitte\JAVA\Capstone-Project\EventZen.UserService\ob
 D:\Users\Prashast\Desktop\Deloitte\JAVA\Capstone-Project\EventZen.UserService\obj\Debug\net10.0\EventZen.UserService.pdb
 D:\Users\Prashast\Desktop\Deloitte\JAVA\Capstone-Project\EventZen.UserService\obj\Debug\net10.0\EventZen.UserService.genruntimeconfig.cache
 D:\Users\Prashast\Desktop\Deloitte\JAVA\Capstone-Project\EventZen.UserService\obj\Debug\net10.0\ref\EventZen.UserService.dll
+D:\Users\Prashast\Desktop\Deloitte\JAVA\Capstone-Project\EventZen.UserService\obj\Debug\net10.0\EventZen.UserService.sourcelink.json
