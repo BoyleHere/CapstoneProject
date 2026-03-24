@@ -72,7 +72,7 @@ export function ManageVendors() {
   };
 
   return (
-    <div className="content-area" style={{ maxWidth: '600px', margin: '0 auto' }}>
+    <div className="content-area" style={{ maxWidth: '900px', margin: '0 auto' }}>
       <div className="panel">
         <div className="panel-header">{editId ? 'Edit Vendor' : 'Add New Vendor'}</div>
         <div className="panel-body">
@@ -137,7 +137,7 @@ export function ManageVendors() {
                     <tr key={v.id}>
                       <td>{index + 1}</td>
                       <td style={{ fontWeight: 'bold' }}>{v.name}</td>
-                      <td><span className="badge badge-approved" style={{ backgroundColor: '#555' }}>{v.serviceType}</span></td>
+                      <td><span className="badge" style={{ backgroundColor: '#8b5cf6', color: 'white', border: '1px solid #7c3aed' }}>{v.serviceType}</span></td>
                       <td>{v.contactEmail || '-'}</td>
                       <td>{v.phone || '-'}</td>
                       <td>₹{typeof v.price === 'number' ? v.price.toFixed(2) : parseFloat(v.price || '0').toFixed(2)}</td>

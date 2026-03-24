@@ -97,7 +97,7 @@ export function BookingDetails() {
     <div className="content-area">
       <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '10px', marginBottom: '15px', display: 'flex', justifyContent: 'space-between' }}>
         <span>Booking #{booking.bookingId} Details</span>
-        <button className="cf-btn" onClick={() => navigate('/my-bookings')}>&laquo; Back</button>
+        <button className="cf-btn" onClick={() => navigate(-1)}>&laquo; Back</button>
       </h3>
 
       <div style={{ display: 'flex', gap: '20px', marginBottom: '20px', flexWrap: 'wrap' }}>
@@ -105,6 +105,7 @@ export function BookingDetails() {
           <div className="panel-header">Booking Info</div>
           <div className="panel-body" style={{ fontSize: '13px', lineHeight: '1.8' }}>
             <p><strong>Booking ID:</strong> {booking.bookingId}</p>
+            <p><strong>Booked By User ID:</strong> {booking.userId}</p>
             <p><strong>Status:</strong> <span className={`badge badge-${booking.bookingStatus.toLowerCase()}`}>{booking.bookingStatus}</span></p>
             <p><strong>Date Created:</strong> {new Date(booking.bookingDate).toLocaleString()}</p>
             <p><strong>Attendees Count:</strong> {booking.attendeeCount}</p>

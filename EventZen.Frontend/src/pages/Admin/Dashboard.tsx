@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { bookingApi } from '../../api/bookingApi';
 import type { BookingSummaryResponse } from '../../api/bookingApi';
 import { eventApi } from '../../api/eventApi';
@@ -76,7 +77,7 @@ export function Dashboard() {
                       <tr key={b.bookingId}>
                         <td>{index + 1}</td>
                         <td>{events.find(e => e.id === b.eventId)?.name || `Event ${b.eventId}`}</td>
-                        <td>{b.attendeeCount}</td>
+                        <td><Link to={`/admin/bookings/${b.bookingId}`} style={{ fontWeight: '600' }}>View {b.attendeeCount} Attendees</Link></td>
                         <td>{new Date(b.bookingDate).toLocaleString()}</td>
                         <td>
                           <div style={{ display: 'flex', gap: '10px' }}>
@@ -110,23 +111,23 @@ export function Dashboard() {
               <table className="cf-table">
                 <thead>
                   <tr>
-                    <th>#</th>
+                    <th>Date</th>
                     <th>Event</th>
                     <th>Attendees</th>
                     <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {pagedPastBookings.map((b, index) => {
+                  {pagedPastBookings.map(b => {
                     let badgeClass = `badge badge-${b.bookingStatus.toLowerCase()}`;
                     if (b.bookingStatus === 'REJECTED' || b.bookingStatus === 'CANCELLED') {
                       badgeClass = 'badge status-red';
                     }
                     return (
                     <tr key={b.bookingId}>
-                      <td>{pastPage * PAGE_SIZE + index + 1}</td>
+                      <td>{new Date(b.bookingDate).toLocaleString()}</td>
                       <td>{events.find(e => e.id === b.eventId)?.name || `Event ${b.eventId}`}</td>
-                      <td>{b.attendeeCount}</td>
+                      <td><Link to={`/admin/bookings/${b.bookingId}`} style={{ fontWeight: '600' }}>View {b.attendeeCount} Attendees</Link></td>
                       <td>
                         <span className={badgeClass}>{b.bookingStatus}</span>
                       </td>

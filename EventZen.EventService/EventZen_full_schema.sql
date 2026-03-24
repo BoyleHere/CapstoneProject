@@ -26,16 +26,16 @@ CREATE TABLE users (
 CREATE TABLE venues (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(150) NOT NULL,
-    location VARCHAR(200),
-    capacity INT,
-    price DECIMAL(10,2),
-    description TEXT,
+    location VARCHAR(200) NOT NULL,
+    capacity INT NOT NULL,
+    price DECIMAL(12,2) NOT NULL,
+    description VARCHAR(2000),
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by BIGINT,
     updated_by BIGINT,
-    status TINYINT DEFAULT 1
+    status INT DEFAULT 1
 );
 
 -- =====================
@@ -46,6 +46,9 @@ CREATE TABLE events (
     name VARCHAR(150) NOT NULL,
     venue_id BIGINT NOT NULL,
     event_date DATETIME,
+    max_attendees_per_user INT,
+    budget DECIMAL(12,2),
+    cost_per_ticket DECIMAL(10,2),
     description TEXT,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -113,6 +116,7 @@ CREATE TABLE vendors (
     service_type VARCHAR(100),
     contact_email VARCHAR(150),
     phone VARCHAR(20),
+    price DECIMAL(10,2),
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
