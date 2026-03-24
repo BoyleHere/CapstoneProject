@@ -338,15 +338,16 @@ export function ManageEvents() {
                 events.map((ev, i) => (
                   <tr key={ev.id}>
                     <td>{i + 1}</td>
-                    <td style={{ fontWeight: 'bold' }}>{ev.name}</td>
+                    <td style={{ fontWeight: 'bold' }}>
+                      <span style={{ cursor: 'pointer', color: 'var(--text-primary)' }} title="Click to view details" onClick={() => navigate(`/admin/events/${ev.id}`)}>
+                        {ev.name}
+                      </span>
+                    </td>
                     <td>{new Date(ev.eventDate).toLocaleString()}</td>
                     <td>{ev.capacity}</td>
                     <td>₹{ev.costPerTicket?.toFixed(2) || '0.00'}</td>
-                    <td style={{ display: 'flex', gap: '5px' }}>
-                      <button type="button" className="cf-btn cf-btn-secondary" onClick={() => navigate(`/admin/events/${ev.id}`)} style={{ fontSize: '11px', padding: '2px 6px' }}>
-                        View
-                      </button>
-                      <button type="button" className="cf-btn cf-btn-primary" onClick={() => handleEditTask(ev)} style={{ fontSize: '11px', padding: '2px 6px' }}>
+                    <td>
+                      <button type="button" className="cf-btn cf-btn-primary" onClick={() => handleEditTask(ev)} style={{ fontSize: '13px', padding: '6px 12px', minWidth: '70px' }}>
                         Edit
                       </button>
                     </td>

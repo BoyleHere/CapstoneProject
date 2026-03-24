@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EventZen.UserService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cee1d4387dff594aa184850c9f781a7db4d11142")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa8f32edc2a65d0278bc1762f1018755d1cc6aeb")]
 [assembly: System.Reflection.AssemblyProductAttribute("EventZen.UserService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EventZen.UserService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

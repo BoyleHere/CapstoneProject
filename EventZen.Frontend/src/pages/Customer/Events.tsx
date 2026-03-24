@@ -184,7 +184,7 @@ export function Events() {
           <div className="panel" style={{ width: '90%', maxWidth: '500px', backgroundColor: '#fff', border: '1px solid #ccc' }}>
             <div className="panel-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 15px' }}>
               <span>Attendees: {viewingEventInfo.name}</span>
-              <button style={{ cursor: 'pointer', background: 'none', border: 'none', color: '#fff', fontSize: '20px', lineHeight: '1' }} onClick={() => setViewingEventInfo(null)}>×</button>
+              <button style={{ cursor: 'pointer', background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '24px', lineHeight: '1' }} onClick={() => setViewingEventInfo(null)}>×</button>
             </div>
             <div className="panel-body" style={{ maxHeight: '400px', overflowY: 'auto', padding: '15px' }}>
               {loadingAttendees ? <p>Loading attendees...</p> : (

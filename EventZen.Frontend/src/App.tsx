@@ -41,6 +41,8 @@ function ProtectedRoute({ children, allowedRole }: { children: React.ReactNode, 
 }
 
 function AppContent() {
+  const { role } = useAuth();
+
   return (
     <>
       <Navbar />
@@ -71,6 +73,9 @@ function AppContent() {
             <Route path="/admin/events/:id" element={
               <ProtectedRoute allowedRole="ADMIN"><AdminEventDetails /></ProtectedRoute>
             } />
+            <Route path="/admin/bookings/:id" element={
+              <ProtectedRoute allowedRole="ADMIN"><BookingDetails /></ProtectedRoute>
+            } />
             <Route path="/admin/venues" element={
               <ProtectedRoute allowedRole="ADMIN"><ManageVenues /></ProtectedRoute>
             } />
@@ -81,13 +86,15 @@ function AppContent() {
           
           {/* Right Sidebar */}
           <div className="sidebar">
-             <div className="panel">
-                <div className="panel-header">System Info</div>
-                <div className="panel-body">
-                   <p>Booking Service: running</p>
-                   <p>Event Service: running</p>
-                </div>
-             </div>
+            {role === 'ADMIN' && (
+              <div className="panel">
+                 <div className="panel-header">System Info</div>
+                 <div className="panel-body">
+                    <p>Booking Service: running</p>
+                    <p>Event Service: running</p>
+                 </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
