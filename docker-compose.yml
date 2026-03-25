@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: eventzen-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: eventzen
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d
+
+  user-service:
+    # .NET
+    build: ./EventZen.UserService
+    container_name: user-service
+    ports:
+      - "5130:8080"
+    depends_on:
+      - mysql
+
+  booking-service:
+    build: ./EventZen.BookingService
+    container_name: booking-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/eventzen
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+
+  event-service:
+    build: ./EventZen.EventService
+    container_name: event-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/eventzen
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+
+  frontend:
+    build: ./EventZen.Frontend
+    container_name: eventzen-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - user-service
+      - booking-service
+      - event-service
+
+volumes:
+  mysql-data:

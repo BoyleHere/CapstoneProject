@@ -1,6 +1,6 @@
 import { apiClient } from './apiClient';
 
-export const USER_API_URL = 'http://localhost:5160/api/users';
+export const USER_API_URL = 'http://localhost:5130/api/users';
 
 export interface UserProfileResponse {
   id: number;

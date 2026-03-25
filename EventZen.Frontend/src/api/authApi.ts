@@ -1,6 +1,6 @@
 import { apiClient } from './apiClient';
 
-export const AUTH_API_URL = 'http://localhost:5160/api/auth';
+export const AUTH_API_URL = 'http://localhost:5130/api/auth';
 
 export interface LoginRequest {
   email: string;

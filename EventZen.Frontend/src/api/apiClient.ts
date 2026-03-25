@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Assuming standard local ports, adjust if necessary
 export const EVENT_API_URL = 'http://localhost:8080/events';
-export const BOOKING_API_URL = 'http://localhost:8083/bookings';
+export const BOOKING_API_URL = 'http://localhost:8081/bookings';
 export const VENUE_API_URL = 'http://localhost:8080/venues';
 export const VENDOR_API_URL = 'http://localhost:8080/vendors';
 
